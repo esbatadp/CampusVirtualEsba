@@ -13,6 +13,7 @@ namespace UnitTestNegocio
         public void Alta()
         {
             Entidades.Usuario usuario = new Entidades.Usuario();
+
             usuario.Nombre = "Facu";
             usuario.Apellido = "Sad";
             usuario.Direccion = "Triunvirato 1122";
