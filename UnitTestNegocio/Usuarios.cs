@@ -13,7 +13,6 @@ namespace UnitTestNegocio
         public void Alta()
         {
             Entidades.Usuario usuario = new Entidades.Usuario();
-            //Comento esto para ver la diferencia en git
             usuario.Nombre = "Facu";
             usuario.Apellido = "Sad";
             usuario.Direccion = "Triunvirato 1122";
