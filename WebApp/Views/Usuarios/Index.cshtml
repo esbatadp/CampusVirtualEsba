@@ -1,0 +1,52 @@
+﻿@model List<Entidades.Usuario>
+
+
+<div class="table-responsive">
+    <a href="/Usuarios/Edicion" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Nuevo Usuario</span>
+    </a>
+    <hr />
+    <table class="table table-bordered" id="ListaUsuarios" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Dirección</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.IdUsuario</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Apellido</td>
+                    <td>@item.Email</td>
+                    <td>@item.Direccion</td>
+                    <td align="center">
+                        <a href="/Usuarios/Eliminar/@item.IdUsuario" class="btn btn-dark btn-circle">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="/Usuarios/Edicion/@item.IdUsuario" class="btn btn-dark btn-circle">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#ListaUsuarios').DataTable();
+    });
+</script>

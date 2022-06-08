@@ -1,0 +1,1253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CampusVirtualModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alumnos">
+          <Key>
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCurso" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="Auditoria">
+          <Key>
+            <PropertyRef Name="IdAuditoria" />
+          </Key>
+          <Property Name="IdAuditoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Accion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tabla" Type="nvarchar" MaxLength="100" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="IdObjeto" Type="int" Nullable="false" />
+          <Property Name="Objeto" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="observacion" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Cursos">
+          <Key>
+            <PropertyRef Name="IdCurso" />
+          </Key>
+          <Property Name="IdCurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMateria" Type="int" />
+          <Property Name="IdProfesor" Type="int" />
+          <Property Name="Cuatrimestre" Type="int" />
+          <Property Name="Anio" Type="int" />
+          <Property Name="IdEstado" Type="int" />
+        </EntityType>
+        <EntityType Name="Cursos_Alumnos">
+          <Key>
+            <PropertyRef Name="IdCursoAlumno" />
+          </Key>
+          <Property Name="IdCursoAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCurso" Type="int" />
+          <Property Name="IdAlumno" Type="int" />
+        </EntityType>
+        <EntityType Name="Errores_Log">
+          <Key>
+            <PropertyRef Name="IdError_Log" />
+          </Key>
+          <Property Name="IdError_Log" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Codigo" Type="int" />
+          <Property Name="Tabla" Type="nvarchar" MaxLength="100" />
+          <Property Name="Accion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Objeto" Type="nvarchar(max)" />
+          <Property Name="Fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Estados_Tipos">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Localidades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" />
+          <Property Name="Cp" Type="int" />
+          <Property Name="IdProvincia" Type="int" />
+          <Property Name="Valor" Type="int" />
+          <Property Name="Zona" Type="int" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="IdMateria" />
+          </Key>
+          <Property Name="IdMateria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Controlador" Type="nvarchar" MaxLength="100" />
+          <Property Name="Accion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CampusVirtual.dbo.MenuPermisos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="MenuPermisos">
+          <Key>
+            <PropertyRef Name="IdPermiso" />
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdPermiso" Type="int" Nullable="false" />
+          <Property Name="IdMenu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notas_Alumnos">
+          <Key>
+            <PropertyRef Name="IdNotaAlumno" />
+          </Key>
+          <Property Name="IdNotaAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCursoAlumno" Type="int" />
+          <Property Name="IdNotaTipo" Type="int" />
+          <Property Name="Nota" Type="float" />
+          <Property Name="Observacion" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Notas_Tipos">
+          <Key>
+            <PropertyRef Name="IdNotaTipo" />
+          </Key>
+          <Property Name="IdNotaTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Paises">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Permisos">
+          <Key>
+            <PropertyRef Name="IdPermiso" />
+          </Key>
+          <Property Name="IdPermiso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="SubMenu">
+          <Key>
+            <PropertyRef Name="IdSubMenu" />
+          </Key>
+          <Property Name="IdSubMenu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMenu" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Controlador" Type="nvarchar" MaxLength="100" />
+          <Property Name="Accion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="500" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="100" />
+          <Property Name="IdTipoUsuario" Type="int" />
+          <Property Name="edad" Type="int" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="IdPermiso" Type="int" />
+          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="IdUsuarioLog" Type="int" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="Observaciones" Type="nvarchar(max)" />
+          <Property Name="CodigoActivacion" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Usuarios_Tipos">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'CampusVirtual.dbo.Vw_UsuariosConTipo' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="Vw_UsuariosConTipo">
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="500" />
+          <Property Name="edad" Type="int" />
+          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="TipoUsuario" Type="nvarchar" MaxLength="500" />
+        </EntityType>-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CampusVirtual.dbo.Vw_UsuariosMenu' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Vw_UsuariosMenu">
+          <Key>
+            <PropertyRef Name="PermisosDescripcion" />
+          </Key>
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+          <Property Name="MenuDescripcion" Type="nvarchar" MaxLength="100" />
+          <Property Name="PermisosDescripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UsuariosTipoDescripcion" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CampusVirtual.dbo.Vw_UsuariosPermisos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Vw_UsuariosPermisos">
+          <Key>
+            <PropertyRef Name="Permiso" />
+          </Key>
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="500" />
+          <Property Name="edad" Type="int" />
+          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="TipoUsuario" Type="nvarchar" MaxLength="500" />
+          <Property Name="Permiso" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Menu" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CampusVirtual.dbo.Vw_UsuariosPermisosTipos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Vw_UsuariosPermisosTipos">
+          <Key>
+            <PropertyRef Name="Permiso" />
+          </Key>
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="100" />
+          <Property Name="Permiso" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TipoUsuario" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK__Alumnos__IdCurso__4FD1D5C8">
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursos">
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos__IdMateri__09A971A2">
+          <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="IdMateria" />
+            </Principal>
+            <Dependent Role="Cursos">
+              <PropertyRef Name="IdMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos__IdProfes__0A9D95DB">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Cursos">
+              <PropertyRef Name="IdProfesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos_Al__IdAlu__0F624AF8">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Cursos_Alumnos" Type="Self.Cursos_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Cursos_Alumnos">
+              <PropertyRef Name="IdAlumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos_Al__IdCur__0E6E26BF">
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="0..1" />
+          <End Role="Cursos_Alumnos" Type="Self.Cursos_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursos">
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="Cursos_Alumnos">
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Localidad__IdPro__3E1D39E1">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Localidades">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuPermi__IdMen__540C7B00">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="MenuPermisos" Type="Self.MenuPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="MenuPermisos">
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MenuPermi__IdPer__55009F39">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+          <End Role="MenuPermisos" Type="Self.MenuPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IdPermiso" />
+            </Principal>
+            <Dependent Role="MenuPermisos">
+              <PropertyRef Name="IdPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notas_Alu__IdCur__123EB7A3">
+          <End Role="Cursos_Alumnos" Type="Self.Cursos_Alumnos" Multiplicity="0..1" />
+          <End Role="Notas_Alumnos" Type="Self.Notas_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursos_Alumnos">
+              <PropertyRef Name="IdCursoAlumno" />
+            </Principal>
+            <Dependent Role="Notas_Alumnos">
+              <PropertyRef Name="IdCursoAlumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notas_Alu__IdNot__1332DBDC">
+          <End Role="Notas_Tipos" Type="Self.Notas_Tipos" Multiplicity="0..1" />
+          <End Role="Notas_Alumnos" Type="Self.Notas_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notas_Tipos">
+              <PropertyRef Name="IdNotaTipo" />
+            </Principal>
+            <Dependent Role="Notas_Alumnos">
+              <PropertyRef Name="IdNotaTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubMenu__IdMenu__55F4C372">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SubMenu">
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuarios__IdPerm__078C1F06">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IdPermiso" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Estados_Tipos">
+          <End Role="Estados_Tipos" Type="Self.Estados_Tipos" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados_Tipos">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Usuarios_Tipos">
+          <End Role="Usuarios_Tipos" Type="Self.Usuarios_Tipos" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios_Tipos">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CampusVirtualModelStoreContainer">
+          <EntitySet Name="Alumnos" EntityType="Self.Alumnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auditoria" EntityType="Self.Auditoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cursos" EntityType="Self.Cursos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cursos_Alumnos" EntityType="Self.Cursos_Alumnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Errores_Log" EntityType="Self.Errores_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estados_Tipos" EntityType="Self.Estados_Tipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notas_Alumnos" EntityType="Self.Notas_Alumnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notas_Tipos" EntityType="Self.Notas_Tipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paises" EntityType="Self.Paises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubMenu" EntityType="Self.SubMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios_Tipos" EntityType="Self.Usuarios_Tipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuPermisos" EntityType="Self.MenuPermisos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MenuPermisos].[IdPermiso] AS [IdPermiso], 
+    [MenuPermisos].[IdMenu] AS [IdMenu]
+    FROM [dbo].[MenuPermisos] AS [MenuPermisos]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_UsuariosMenu" EntityType="Self.Vw_UsuariosMenu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_UsuariosMenu].[Nombre] AS [Nombre], 
+    [Vw_UsuariosMenu].[Apellido] AS [Apellido], 
+    [Vw_UsuariosMenu].[MenuDescripcion] AS [MenuDescripcion], 
+    [Vw_UsuariosMenu].[PermisosDescripcion] AS [PermisosDescripcion], 
+    [Vw_UsuariosMenu].[UsuariosTipoDescripcion] AS [UsuariosTipoDescripcion]
+    FROM [dbo].[Vw_UsuariosMenu] AS [Vw_UsuariosMenu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_UsuariosPermisos" EntityType="Self.Vw_UsuariosPermisos" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_UsuariosPermisos].[Nombre] AS [Nombre], 
+    [Vw_UsuariosPermisos].[Apellido] AS [Apellido], 
+    [Vw_UsuariosPermisos].[Email] AS [Email], 
+    [Vw_UsuariosPermisos].[Direccion] AS [Direccion], 
+    [Vw_UsuariosPermisos].[edad] AS [edad], 
+    [Vw_UsuariosPermisos].[FechaNacimiento] AS [FechaNacimiento], 
+    [Vw_UsuariosPermisos].[TipoUsuario] AS [TipoUsuario], 
+    [Vw_UsuariosPermisos].[Permiso] AS [Permiso], 
+    [Vw_UsuariosPermisos].[Menu] AS [Menu]
+    FROM [dbo].[Vw_UsuariosPermisos] AS [Vw_UsuariosPermisos]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_UsuariosPermisosTipos" EntityType="Self.Vw_UsuariosPermisosTipos" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_UsuariosPermisosTipos].[Nombre] AS [Nombre], 
+    [Vw_UsuariosPermisosTipos].[Apellido] AS [Apellido], 
+    [Vw_UsuariosPermisosTipos].[Permiso] AS [Permiso], 
+    [Vw_UsuariosPermisosTipos].[TipoUsuario] AS [TipoUsuario]
+    FROM [dbo].[Vw_UsuariosPermisosTipos] AS [Vw_UsuariosPermisosTipos]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Alumnos__IdCurso__4FD1D5C8" Association="Self.FK__Alumnos__IdCurso__4FD1D5C8">
+            <End Role="Cursos" EntitySet="Cursos" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos__IdMateri__09A971A2" Association="Self.FK__Cursos__IdMateri__09A971A2">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Cursos" EntitySet="Cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos__IdProfes__0A9D95DB" Association="Self.FK__Cursos__IdProfes__0A9D95DB">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Cursos" EntitySet="Cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos_Al__IdAlu__0F624AF8" Association="Self.FK__Cursos_Al__IdAlu__0F624AF8">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Cursos_Alumnos" EntitySet="Cursos_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos_Al__IdCur__0E6E26BF" Association="Self.FK__Cursos_Al__IdCur__0E6E26BF">
+            <End Role="Cursos" EntitySet="Cursos" />
+            <End Role="Cursos_Alumnos" EntitySet="Cursos_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Localidad__IdPro__3E1D39E1" Association="Self.FK__Localidad__IdPro__3E1D39E1">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Localidades" EntitySet="Localidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuPermi__IdMen__540C7B00" Association="Self.FK__MenuPermi__IdMen__540C7B00">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="MenuPermisos" EntitySet="MenuPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MenuPermi__IdPer__55009F39" Association="Self.FK__MenuPermi__IdPer__55009F39">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="MenuPermisos" EntitySet="MenuPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notas_Alu__IdCur__123EB7A3" Association="Self.FK__Notas_Alu__IdCur__123EB7A3">
+            <End Role="Cursos_Alumnos" EntitySet="Cursos_Alumnos" />
+            <End Role="Notas_Alumnos" EntitySet="Notas_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notas_Alu__IdNot__1332DBDC" Association="Self.FK__Notas_Alu__IdNot__1332DBDC">
+            <End Role="Notas_Tipos" EntitySet="Notas_Tipos" />
+            <End Role="Notas_Alumnos" EntitySet="Notas_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubMenu__IdMenu__55F4C372" Association="Self.FK__SubMenu__IdMenu__55F4C372">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="SubMenu" EntitySet="SubMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuarios__IdPerm__078C1F06" Association="Self.FK__Usuarios__IdPerm__078C1F06">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Estados_Tipos" Association="Self.FK_Usuarios_Estados_Tipos">
+            <End Role="Estados_Tipos" EntitySet="Estados_Tipos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Usuarios_Tipos" Association="Self.FK_Usuarios_Usuarios_Tipos">
+            <End Role="Usuarios_Tipos" EntitySet="Usuarios_Tipos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CampusVirtualModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumnos">
+          <Key>
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCurso" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="Cursos" Relationship="Self.FK__Alumnos__IdCurso__4FD1D5C8" FromRole="Alumnos" ToRole="Cursos" />
+        </EntityType>
+        <EntityType Name="Auditoria">
+          <Key>
+            <PropertyRef Name="IdAuditoria" />
+          </Key>
+          <Property Name="IdAuditoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Accion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tabla" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="IdObjeto" Type="Int32" Nullable="false" />
+          <Property Name="Objeto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="observacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Cursos">
+          <Key>
+            <PropertyRef Name="IdCurso" />
+          </Key>
+          <Property Name="IdCurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMateria" Type="Int32" />
+          <Property Name="IdProfesor" Type="Int32" />
+          <Property Name="Cuatrimestre" Type="Int32" />
+          <Property Name="Anio" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" />
+          <NavigationProperty Name="Alumnos" Relationship="Self.FK__Alumnos__IdCurso__4FD1D5C8" FromRole="Cursos" ToRole="Alumnos" />
+          <NavigationProperty Name="Materias" Relationship="Self.FK__Cursos__IdMateri__09A971A2" FromRole="Cursos" ToRole="Materias" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Cursos__IdProfes__0A9D95DB" FromRole="Cursos" ToRole="Usuarios" />
+          <NavigationProperty Name="Cursos_Alumnos" Relationship="Self.FK__Cursos_Al__IdCur__0E6E26BF" FromRole="Cursos" ToRole="Cursos_Alumnos" />
+        </EntityType>
+        <EntityType Name="Cursos_Alumnos">
+          <Key>
+            <PropertyRef Name="IdCursoAlumno" />
+          </Key>
+          <Property Name="IdCursoAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCurso" Type="Int32" />
+          <Property Name="IdAlumno" Type="Int32" />
+          <NavigationProperty Name="Cursos" Relationship="Self.FK__Cursos_Al__IdCur__0E6E26BF" FromRole="Cursos_Alumnos" ToRole="Cursos" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Cursos_Al__IdAlu__0F624AF8" FromRole="Cursos_Alumnos" ToRole="Usuarios" />
+          <NavigationProperty Name="Notas_Alumnos" Relationship="Self.FK__Notas_Alu__IdCur__123EB7A3" FromRole="Cursos_Alumnos" ToRole="Notas_Alumnos" />
+        </EntityType>
+        <EntityType Name="Errores_Log">
+          <Key>
+            <PropertyRef Name="IdError_Log" />
+          </Key>
+          <Property Name="IdError_Log" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Codigo" Type="Int32" />
+          <Property Name="Tabla" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Accion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Objeto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Estados_Tipos">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Estados_Tipos" FromRole="Estados_Tipos" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Localidades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Cp" Type="Int32" />
+          <Property Name="IdProvincia" Type="Int32" />
+          <Property Name="Valor" Type="Int32" />
+          <Property Name="Zona" Type="Int32" />
+          <NavigationProperty Name="Provincias" Relationship="Self.FK__Localidad__IdPro__3E1D39E1" FromRole="Localidades" ToRole="Provincias" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="IdMateria" />
+          </Key>
+          <Property Name="IdMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cursos" Relationship="Self.FK__Cursos__IdMateri__09A971A2" FromRole="Materias" ToRole="Cursos" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Controlador" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Accion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="SubMenu" Relationship="Self.FK__SubMenu__IdMenu__55F4C372" FromRole="Menu" ToRole="SubMenu" />
+          <NavigationProperty Name="Permisos" Relationship="Self.MenuPermisos" FromRole="Menu" ToRole="Permisos" />
+        </EntityType>
+        <EntityType Name="Notas_Alumnos">
+          <Key>
+            <PropertyRef Name="IdNotaAlumno" />
+          </Key>
+          <Property Name="IdNotaAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCursoAlumno" Type="Int32" />
+          <Property Name="IdNotaTipo" Type="Int32" />
+          <Property Name="Nota" Type="Double" />
+          <Property Name="Observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cursos_Alumnos" Relationship="Self.FK__Notas_Alu__IdCur__123EB7A3" FromRole="Notas_Alumnos" ToRole="Cursos_Alumnos" />
+          <NavigationProperty Name="Notas_Tipos" Relationship="Self.FK__Notas_Alu__IdNot__1332DBDC" FromRole="Notas_Alumnos" ToRole="Notas_Tipos" />
+        </EntityType>
+        <EntityType Name="Notas_Tipos">
+          <Key>
+            <PropertyRef Name="IdNotaTipo" />
+          </Key>
+          <Property Name="IdNotaTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notas_Alumnos" Relationship="Self.FK__Notas_Alu__IdNot__1332DBDC" FromRole="Notas_Tipos" ToRole="Notas_Alumnos" />
+        </EntityType>
+        <EntityType Name="Paises">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Permisos">
+          <Key>
+            <PropertyRef Name="IdPermiso" />
+          </Key>
+          <Property Name="IdPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuarios__IdPerm__078C1F06" FromRole="Permisos" ToRole="Usuarios" />
+          <NavigationProperty Name="Menu" Relationship="Self.MenuPermisos" FromRole="Permisos" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Localidades" Relationship="Self.FK__Localidad__IdPro__3E1D39E1" FromRole="Provincias" ToRole="Localidades" />
+        </EntityType>
+        <EntityType Name="SubMenu">
+          <Key>
+            <PropertyRef Name="IdSubMenu" />
+          </Key>
+          <Property Name="IdSubMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMenu" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Controlador" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Accion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK__SubMenu__IdMenu__55F4C372" FromRole="SubMenu" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Clave" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdTipoUsuario" Type="Int32" />
+          <Property Name="edad" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="IdPermiso" Type="Int32" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuarioLog" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CodigoActivacion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cursos" Relationship="Self.FK__Cursos__IdProfes__0A9D95DB" FromRole="Usuarios" ToRole="Cursos" />
+          <NavigationProperty Name="Cursos_Alumnos" Relationship="Self.FK__Cursos_Al__IdAlu__0F624AF8" FromRole="Usuarios" ToRole="Cursos_Alumnos" />
+          <NavigationProperty Name="Estados_Tipos" Relationship="Self.FK_Usuarios_Estados_Tipos" FromRole="Usuarios" ToRole="Estados_Tipos" />
+          <NavigationProperty Name="Permisos" Relationship="Self.FK__Usuarios__IdPerm__078C1F06" FromRole="Usuarios" ToRole="Permisos" />
+          <NavigationProperty Name="Usuarios_Tipos" Relationship="Self.FK_Usuarios_Usuarios_Tipos" FromRole="Usuarios" ToRole="Usuarios_Tipos" />
+        </EntityType>
+        <EntityType Name="Usuarios_Tipos">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Usuarios_Tipos" FromRole="Usuarios_Tipos" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK__Alumnos__IdCurso__4FD1D5C8">
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="1" />
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursos">
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="Alumnos">
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos__IdMateri__09A971A2">
+          <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="IdMateria" />
+            </Principal>
+            <Dependent Role="Cursos">
+              <PropertyRef Name="IdMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos__IdProfes__0A9D95DB">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Cursos">
+              <PropertyRef Name="IdProfesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos_Al__IdCur__0E6E26BF">
+          <End Role="Cursos" Type="Self.Cursos" Multiplicity="0..1" />
+          <End Role="Cursos_Alumnos" Type="Self.Cursos_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursos">
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="Cursos_Alumnos">
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cursos_Al__IdAlu__0F624AF8">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Cursos_Alumnos" Type="Self.Cursos_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Cursos_Alumnos">
+              <PropertyRef Name="IdAlumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notas_Alu__IdCur__123EB7A3">
+          <End Role="Cursos_Alumnos" Type="Self.Cursos_Alumnos" Multiplicity="0..1" />
+          <End Role="Notas_Alumnos" Type="Self.Notas_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cursos_Alumnos">
+              <PropertyRef Name="IdCursoAlumno" />
+            </Principal>
+            <Dependent Role="Notas_Alumnos">
+              <PropertyRef Name="IdCursoAlumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Estados_Tipos">
+          <End Role="Estados_Tipos" Type="Self.Estados_Tipos" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados_Tipos">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Localidad__IdPro__3E1D39E1">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Localidades">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SubMenu__IdMenu__55F4C372">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="SubMenu" Type="Self.SubMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SubMenu">
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notas_Alu__IdNot__1332DBDC">
+          <End Role="Notas_Tipos" Type="Self.Notas_Tipos" Multiplicity="0..1" />
+          <End Role="Notas_Alumnos" Type="Self.Notas_Alumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notas_Tipos">
+              <PropertyRef Name="IdNotaTipo" />
+            </Principal>
+            <Dependent Role="Notas_Alumnos">
+              <PropertyRef Name="IdNotaTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuarios__IdPerm__078C1F06">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="IdPermiso" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Usuarios_Tipos">
+          <End Role="Usuarios_Tipos" Type="Self.Usuarios_Tipos" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios_Tipos">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenuPermisos">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CampusVirtualEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnos" EntityType="Self.Alumnos" />
+          <EntitySet Name="Auditoria" EntityType="Self.Auditoria" />
+          <EntitySet Name="Cursos" EntityType="Self.Cursos" />
+          <EntitySet Name="Cursos_Alumnos" EntityType="Self.Cursos_Alumnos" />
+          <EntitySet Name="Errores_Log" EntityType="Self.Errores_Log" />
+          <EntitySet Name="Estados_Tipos" EntityType="Self.Estados_Tipos" />
+          <EntitySet Name="Localidades" EntityType="Self.Localidades" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Notas_Alumnos" EntityType="Self.Notas_Alumnos" />
+          <EntitySet Name="Notas_Tipos" EntityType="Self.Notas_Tipos" />
+          <EntitySet Name="Paises" EntityType="Self.Paises" />
+          <EntitySet Name="Permisos" EntityType="Self.Permisos" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" />
+          <EntitySet Name="SubMenu" EntityType="Self.SubMenu" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <EntitySet Name="Usuarios_Tipos" EntityType="Self.Usuarios_Tipos" />
+          <AssociationSet Name="FK__Alumnos__IdCurso__4FD1D5C8" Association="Self.FK__Alumnos__IdCurso__4FD1D5C8">
+            <End Role="Cursos" EntitySet="Cursos" />
+            <End Role="Alumnos" EntitySet="Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos__IdMateri__09A971A2" Association="Self.FK__Cursos__IdMateri__09A971A2">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Cursos" EntitySet="Cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos__IdProfes__0A9D95DB" Association="Self.FK__Cursos__IdProfes__0A9D95DB">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Cursos" EntitySet="Cursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos_Al__IdCur__0E6E26BF" Association="Self.FK__Cursos_Al__IdCur__0E6E26BF">
+            <End Role="Cursos" EntitySet="Cursos" />
+            <End Role="Cursos_Alumnos" EntitySet="Cursos_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cursos_Al__IdAlu__0F624AF8" Association="Self.FK__Cursos_Al__IdAlu__0F624AF8">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Cursos_Alumnos" EntitySet="Cursos_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notas_Alu__IdCur__123EB7A3" Association="Self.FK__Notas_Alu__IdCur__123EB7A3">
+            <End Role="Cursos_Alumnos" EntitySet="Cursos_Alumnos" />
+            <End Role="Notas_Alumnos" EntitySet="Notas_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Estados_Tipos" Association="Self.FK_Usuarios_Estados_Tipos">
+            <End Role="Estados_Tipos" EntitySet="Estados_Tipos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Localidad__IdPro__3E1D39E1" Association="Self.FK__Localidad__IdPro__3E1D39E1">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Localidades" EntitySet="Localidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SubMenu__IdMenu__55F4C372" Association="Self.FK__SubMenu__IdMenu__55F4C372">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="SubMenu" EntitySet="SubMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notas_Alu__IdNot__1332DBDC" Association="Self.FK__Notas_Alu__IdNot__1332DBDC">
+            <End Role="Notas_Tipos" EntitySet="Notas_Tipos" />
+            <End Role="Notas_Alumnos" EntitySet="Notas_Alumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuarios__IdPerm__078C1F06" Association="Self.FK__Usuarios__IdPerm__078C1F06">
+            <End Role="Permisos" EntitySet="Permisos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Usuarios_Tipos" Association="Self.FK_Usuarios_Usuarios_Tipos">
+            <End Role="Usuarios_Tipos" EntitySet="Usuarios_Tipos" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="MenuPermisos" Association="Self.MenuPermisos">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Permisos" EntitySet="Permisos" />
+          </AssociationSet>
+          <EntitySet Name="Vw_UsuariosMenu" EntityType="CampusVirtualModel.Vw_UsuariosMenu" />
+          <EntitySet Name="Vw_UsuariosPermisos" EntityType="CampusVirtualModel.Vw_UsuariosPermisos" />
+          <EntitySet Name="Vw_UsuariosPermisosTipos" EntityType="CampusVirtualModel.Vw_UsuariosPermisosTipos" />
+        </EntityContainer>
+        <EntityType Name="Vw_UsuariosMenu">
+          <Key>
+            <PropertyRef Name="PermisosDescripcion" />
+          </Key>
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MenuDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PermisosDescripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UsuariosTipoDescripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_UsuariosPermisos">
+          <Key>
+            <PropertyRef Name="Permiso" />
+          </Key>
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="edad" Type="Int32" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="TipoUsuario" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Permiso" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Menu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_UsuariosPermisosTipos">
+          <Key>
+            <PropertyRef Name="Permiso" />
+          </Key>
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Permiso" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TipoUsuario" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CampusVirtualModelStoreContainer" CdmEntityContainer="CampusVirtualEntities">
+          <EntitySetMapping Name="Alumnos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Alumnos">
+              <MappingFragment StoreEntitySet="Alumnos">
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Auditoria">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Auditoria">
+              <MappingFragment StoreEntitySet="Auditoria">
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="IdAuditoria" ColumnName="IdAuditoria" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Tabla" ColumnName="Tabla" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdObjeto" ColumnName="IdObjeto" />
+                <ScalarProperty Name="Objeto" ColumnName="Objeto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cursos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Cursos">
+              <MappingFragment StoreEntitySet="Cursos">
+                <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+                <ScalarProperty Name="IdProfesor" ColumnName="IdProfesor" />
+                <ScalarProperty Name="Cuatrimestre" ColumnName="Cuatrimestre" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cursos_Alumnos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Cursos_Alumnos">
+              <MappingFragment StoreEntitySet="Cursos_Alumnos">
+                <ScalarProperty Name="IdCursoAlumno" ColumnName="IdCursoAlumno" />
+                <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Errores_Log">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Errores_Log">
+              <MappingFragment StoreEntitySet="Errores_Log">
+                <ScalarProperty Name="IdError_Log" ColumnName="IdError_Log" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Tabla" ColumnName="Tabla" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Objeto" ColumnName="Objeto" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estados_Tipos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Estados_Tipos">
+              <MappingFragment StoreEntitySet="Estados_Tipos">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localidades">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Localidades">
+              <MappingFragment StoreEntitySet="Localidades">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Cp" ColumnName="Cp" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Zona" ColumnName="Zona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materias">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Materias">
+              <MappingFragment StoreEntitySet="Materias">
+                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Controlador" ColumnName="Controlador" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notas_Alumnos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Notas_Alumnos">
+              <MappingFragment StoreEntitySet="Notas_Alumnos">
+                <ScalarProperty Name="IdNotaAlumno" ColumnName="IdNotaAlumno" />
+                <ScalarProperty Name="IdCursoAlumno" ColumnName="IdCursoAlumno" />
+                <ScalarProperty Name="IdNotaTipo" ColumnName="IdNotaTipo" />
+                <ScalarProperty Name="Nota" ColumnName="Nota" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notas_Tipos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Notas_Tipos">
+              <MappingFragment StoreEntitySet="Notas_Tipos">
+                <ScalarProperty Name="IdNotaTipo" ColumnName="IdNotaTipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paises">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Paises">
+              <MappingFragment StoreEntitySet="Paises">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permisos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Permisos">
+              <MappingFragment StoreEntitySet="Permisos">
+                <ScalarProperty Name="IdPermiso" ColumnName="IdPermiso" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincias">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Provincias">
+              <MappingFragment StoreEntitySet="Provincias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubMenu">
+            <EntityTypeMapping TypeName="CampusVirtualModel.SubMenu">
+              <MappingFragment StoreEntitySet="SubMenu">
+                <ScalarProperty Name="IdSubMenu" ColumnName="IdSubMenu" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Controlador" ColumnName="Controlador" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CampusVirtualModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="IdPermiso" ColumnName="IdPermiso" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="IdUsuarioLog" ColumnName="IdUsuarioLog" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="CodigoActivacion" ColumnName="CodigoActivacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios_Tipos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Usuarios_Tipos">
+              <MappingFragment StoreEntitySet="Usuarios_Tipos">
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MenuPermisos" TypeName="CampusVirtualModel.MenuPermisos" StoreEntitySet="MenuPermisos">
+            <EndProperty Name="Menu">
+              <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+            </EndProperty>
+            <EndProperty Name="Permisos">
+              <ScalarProperty Name="IdPermiso" ColumnName="IdPermiso" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Vw_UsuariosMenu">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Vw_UsuariosMenu">
+              <MappingFragment StoreEntitySet="Vw_UsuariosMenu">
+                <ScalarProperty Name="UsuariosTipoDescripcion" ColumnName="UsuariosTipoDescripcion" />
+                <ScalarProperty Name="PermisosDescripcion" ColumnName="PermisosDescripcion" />
+                <ScalarProperty Name="MenuDescripcion" ColumnName="MenuDescripcion" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_UsuariosPermisos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Vw_UsuariosPermisos">
+              <MappingFragment StoreEntitySet="Vw_UsuariosPermisos">
+                <ScalarProperty Name="Menu" ColumnName="Menu" />
+                <ScalarProperty Name="Permiso" ColumnName="Permiso" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_UsuariosPermisosTipos">
+            <EntityTypeMapping TypeName="CampusVirtualModel.Vw_UsuariosPermisosTipos">
+              <MappingFragment StoreEntitySet="Vw_UsuariosPermisosTipos">
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="Permiso" ColumnName="Permiso" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

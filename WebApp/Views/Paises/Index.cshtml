@@ -1,0 +1,46 @@
+﻿@model List<Entidades.Pais>
+
+
+<div class="table-responsive">
+    <a href="/Paises/Edicion" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Nuevo Pais</span>
+    </a>
+    <hr />
+    <table class="table table-bordered" id="ListaPaises" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Descripcion</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.IdPais</td>
+                    <td>@item.Descripcion</td>
+                    <td align="center">
+                        <a href="/Paises/Eliminar/@item.IdPais" class="btn btn-dark btn-circle">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="/Paises/Edicion/@item.IdPais" class="btn btn-dark btn-circle">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#ListaPaises').DataTable();
+    });
+</script>

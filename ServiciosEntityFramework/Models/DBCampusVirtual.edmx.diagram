@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b3f3038fa774ac8b134e88e4452afda" Name="Diagram1">
+        <EntityTypeShape EntityType="CampusVirtualModel.Alumnos" Width="1.5" PointX="9.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Auditoria" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Cursos" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Cursos_Alumnos" Width="1.5" PointX="9.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Errores_Log" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Estados_Tipos" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Localidades" Width="1.5" PointX="10" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Materias" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Menu" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Notas_Alumnos" Width="1.5" PointX="12" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Notas_Tipos" Width="1.5" PointX="9.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Paises" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Permisos" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Provincias" Width="1.5" PointX="7.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.SubMenu" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Usuarios" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Usuarios_Tipos" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Alumnos__IdCurso__4FD1D5C8" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Cursos__IdMateri__09A971A2" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Cursos__IdProfes__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Cursos_Al__IdCur__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Cursos_Al__IdAlu__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Notas_Alu__IdCur__123EB7A3" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK_Usuarios_Estados_Tipos" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Localidad__IdPro__3E1D39E1" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__SubMenu__IdMenu__55F4C372" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Notas_Alu__IdNot__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK__Usuarios__IdPerm__078C1F06" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.FK_Usuarios_Usuarios_Tipos" ManuallyRouted="false" />
+        <AssociationConnector Association="CampusVirtualModel.MenuPermisos" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Vw_UsuariosMenu" Width="1.5" PointX="12.375" PointY="7.75" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Vw_UsuariosPermisos" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="CampusVirtualModel.Vw_UsuariosPermisosTipos" Width="1.5" PointX="7.375" PointY="13.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,46 @@
+﻿@model List<Entidades.Materia>
+
+
+<div class="table-responsive">
+    <a href="/Materias/Edicion" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Nuevo Materia</span>
+    </a>
+    <hr />
+    <table class="table table-bordered" id="ListaMaterias" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Descripcion</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.IdMateria</td>
+                    <td>@item.Descripcion</td>
+                    <td align="center">
+                        <a href="/Materias/Eliminar/@item.IdMateria" class="btn btn-dark btn-circle">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="/Materias/Edicion/@item.IdMateria" class="btn btn-dark btn-circle">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#ListaMaterias').DataTable();
+    });
+</script>
